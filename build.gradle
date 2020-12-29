@@ -30,15 +30,13 @@ dependencies {
 
 application {
     // Define the main class for the application
-    mainClassName = 'acat.App'
+    mainClassName = 'acat.Launcher'
 }
 
 javafx {
     version = '11.0.2'
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
-
-mainClassName = 'acat.Launcher'
 
 jar {
     manifest {

@@ -1,103 +1,126 @@
 package acat;
 
-import acat.controller.Main;
+import com.github.acat2.controllers.MainController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Comparator;
 
 public class Acat extends Application {
 
-    private static Main main;
-    public static Stage stage;
-
-
-    @Override
-    public void start(Stage primaryStage) {
-
-        // set reference to primaryStage
-        stage = primaryStage;
-
-        // Stage
-        primaryStage.setTitle("Aggregated Coupling Analysis Tool v1.0");
-        primaryStage.setScene(new Scene(load()));
-        primaryStage.getIcons().add(new Image("images/logo.png"));
-        primaryStage.show();
-
-    }
-
-    @Override
-    public void stop() throws Exception {
-
-        super.stop();
-
-        clearTemp();
-
-    }
-
-
-    public  static void main(String[] args) {
+    public static void main(String[] args) {
         launch(args);
     }
 
-    public  static void reload() {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
 
-        clearTemp();
+        // Memuat file frame.fxml
+        URL mainFxml = Acat.class.getResource( "/views/frame.fxml" );
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation( mainFxml );
+        Parent root = loader.load();
 
-        stage.getScene().setRoot(load());
+        // Memberikan referensi primaryStage ke MainController
+        // bertujuan untuk menampilkan DirectoryChooser dan Alert.
+        MainController mainController = loader.getController();
+        mainController.setStage(primaryStage);
 
-    }
-
-    private static Parent load() {
-
-        try {
-
-            // Load main fxml
-            URL mainFxml = Acat.class.getResource("/views/main.fxml");
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(mainFxml);
-            Parent root = loader.load();
-
-            // get reference to the Main controller
-            main = loader.getController();
+        primaryStage.setOnCloseRequest( event -> {
+            mainController.dispose();
+            Platform.exit();
+            System.exit( 0 );
+        });
+        primaryStage.setTitle( "Aggregated Coupling Assessment Tool v1.0-SNAPSHOT" );
+        primaryStage.setScene( new Scene( root ) );
+        primaryStage.getIcons().add( new Image("images/logo-acat.png") );
+        primaryStage.setMaximized( true );
+        primaryStage.show();
 
 
-            return root;
+        /*--- mencoba binding
+        ObservableList<String> publisher = FXCollections.observableArrayList();
+        TableColumn<String, String> col = new TableColumn<>("Items");
+        col.setCellValueFactory( param -> new SimpleStringProperty( param.getValue() ) );
+        TableView<String> tv = new TableView<>( publisher );
+        tv.getColumns().add( col );
 
-        } catch (Exception e) {
+        AtomicInteger increment = new AtomicInteger(0);
+        Button tambah = new Button("tambah");
+        Button hapus = new Button("hapus");
+        tambah.setOnAction( event -> publisher.add( "fakeItem-" + increment.getAndIncrement() ));
+        hapus.setOnAction( event ->{ if (publisher.size() > 0) { publisher.remove(publisher.size()-1); increment.decrementAndGet();} });
 
-            e.printStackTrace();
+        primaryStage.setScene( new Scene( new VBox( tambah, hapus, tv ) ) );
+        primaryStage.show();*/
 
-            return null;
+        /*--- coba bitmask
+        int paramsValidity = 0b1101111;
+        int pos = 3;
+        int mask = 0b1;
 
-        }
+        System.out.println( String.format("%7s", Integer.toBinaryString( paramsValidity )).replace(' ', '0') );
+        System.out.println( String.format("%7s", Integer.toBinaryString( mask )).replace(' ', '0') );
+        System.out.println( String.format("%7s", Integer.toBinaryString( mask << pos)).replace(' ', '0') );
+        System.out.println( String.format("%7s", Integer.toBinaryString( mask << (pos+1))).replace(' ', '0') );
+        System.out.println( String.format("%7s", Integer.toBinaryString( (0b111 + 1) & 0b111).replace(' ', '0') ) );*/
 
-    }
+        /*--- coba validasi input
+        System.out.println(Double.parseDouble("5"));
+        System.out.println(Double.parseDouble("5-"));
+        System.out.println(Double.parseDouble("5sa"));
+        System.out.println(Double.parseDouble("5e2"));
+        System.out.println(Double.parseDouble("5e-2"));*/
 
-    private static void clearTemp() {
+        /*--- coba sorting 3 list
+        List<String> dummy = Arrays.asList("var_variable", "method()", "class",
+                "var_variable", "method()", "class",
+                "var_variable", "method()", "class",
+                "var_variable", "method()", "class",
+                "var_variable", "method()", "class");
 
-        try {
+        dummy.sort( (s1, s2) -> {
 
-            // delete temporary folder recursively
-            Files.walk(main.output)
-                    .sorted(Comparator.reverseOrder())
-                    .map(Path::toFile)
-                    .forEach(File::delete);
+            boolean isVar1 = s1.startsWith("var_");
+            boolean isVar2 = s2.startsWith("var_");
+            boolean isFun1 = s1.endsWith("()");
+            boolean isFun2 = s2.endsWith("()");
 
-        } catch (IOException e) {
+            if ( isVar1 )
+                if ( isVar2 ) return 0;
+                else if ( isFun2 ) return -1;
+                else return 1;
+            else if ( isFun1 )
+                if ( isVar2 ) return 1;
+                else if ( isFun2 ) return 0;
+                else return 1;
+            else
+                if ( isVar2 ) return -1;
+                else if ( isFun2 ) return -1;
+                else return 0;
 
-            e.printStackTrace();
+        } );
+        dummy.forEach(System.out::println);*/
 
-        }
+        /*Doc2Vec pv = new Doc2Vec(
+                "/media/share/data/kuliah_s1/Semester_8/skripsi/leap3/samples/clean-corpus-dbutils-1.3.txt",
+                "/media/share/data/kuliah_s1/Semester_8/skripsi/leap3/samples/",
+                300,
+                5,
+                100,
+                0.05f,
+                1e-5f,
+                20,
+                true
+        );
+        pv.TrainModel();*/
+
+//        System.exit(0);
 
     }
 
