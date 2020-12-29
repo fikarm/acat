@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="acat.controller.Details">
+   <children>
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <children>
+            <Label text="Filter :" />
+            <ToggleButton fx:id="tbSC" accessibleText="sc" mnemonicParsing="false" selected="true" text="Structural Coupling">
+               <styleClass>
+                  <String fx:value="toggle" />
+                  <String fx:value="btn" />
+                  <String fx:value="btn-grey" />
+               </styleClass>
+            </ToggleButton>
+            <ToggleButton fx:id="tbCC" accessibleText="cc" mnemonicParsing="false" selected="true" text="Conceptual Coupling">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-grey" />
+                  <String fx:value="toggle" />
+               </styleClass>
+            </ToggleButton>
+            <ToggleButton fx:id="tbAC" accessibleText="ac" mnemonicParsing="false" selected="true" text="Aggregated Coupling">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-grey" />
+                  <String fx:value="toggle" />
+               </styleClass>
+            </ToggleButton>
+         </children>
+         <padding>
+            <Insets bottom="10.0" />
+         </padding>
+      </HBox>
+      <TableView fx:id="tvCalcResult" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>
