@@ -1,0 +1,309 @@
+/**
+ main-blue: #4f9ee3;
+ blue-border: #4b97d9;
+ gray-border: #cfcfcf;
+ text-dark: #242424;
+ gray-background: #f2f2f5;
+**/
+
+.root{
+    -fx-background-color: transparent;
+    -fx-text-fill: #242424;
+    -fx-focus-color: transparent;
+}
+
+
+/**
+* Label
+*/
+.label {
+    -fx-text-fill: #242424;
+}
+
+/**
+* Button
+*/
+.button {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-color: #cfcfcf;
+    -fx-border-width: 1;
+    -fx-border-radius: 3;
+}
+.button:focused {
+    -fx-border-color: #1479ff;
+    -fx-border-width: 1;
+    -fx-border-radius: 3;
+}
+/*
+.button:selected {
+    -fx-border-color: #1479ff;
+    -fx-border-width: 2;
+    -fx-border-radius: 3;
+}
+*/
+#buttonCancelTask {
+    -fx-background-color: #6e6e6e;
+    -fx-border-color: transparent;
+    -fx-padding:2;
+    -fx-text-fill: white;
+}
+#buttonCancelTask:hover {
+    -fx-background-color: #ff666c;
+}
+#buttonCancelTask:pressed {
+    -fx-background-color: #ff4148;
+}
+
+
+
+.menu-bar {
+    -fx-padding: 0 1 0 1;
+    -fx-background-color: #f2f2f5;
+}
+
+.menu:hover > .label {
+    -fx-text-fill: white;
+}
+
+
+.tool-bar {
+    -fx-background-color: #f2f2f5;
+        -fx-border-color: #cfcfcf;
+        -fx-border-width: 1 0 0 0;
+}
+.tool-bar .container {
+    -fx-background-color: #f2f2f5;
+}
+
+.text-field {
+    -fx-background-color: white;
+        -fx-border-color: #e0e2e6;
+        -fx-border-radius: 3;
+        -fx-border-width: 2;
+}
+.text-field:focused {
+    -fx-focus-color: #1479ff;
+    -fx-border-color: #1479ff;
+    -fx-border-radius: 3;
+    -fx-border-width: 2;
+}
+
+
+/*
+#buttonCancelTask:focused {
+    -fx-border-color: #1479ff;
+    -fx-border-width: 2;
+    -fx-border-radius: 3;
+}
+*/
+
+.check-box .box {
+    -fx-background-color: white;
+        -fx-border-color: #e0e2e6;
+        -fx-border-radius: 3;
+        -fx-border-width: 2;
+}
+.check-box:focused .box {
+    -fx-border-color: #1479ff;
+        -fx-border-radius: 3;
+        -fx-border-width: 2;
+}
+.check-box:selected .box {
+    -fx-background-color: #1479ff;
+        -fx-border-color: #1479ff;
+        -fx-border-radius: 3;
+        -fx-border-width: 2;
+}
+.check-box .mark {
+    -fx-background-color: white;
+}
+
+
+/**
+ * Drop area
+ */
+#stackPaneMain {
+    -fx-background-color: #c1c0c3;
+    -fx-border-color: #cfcfcf;
+    -fx-border-width: 0;
+}
+#stackPaneMain > .label {
+    -fx-text-fill: #777676;
+}
+#hboxStatusBar {
+    -fx-background-color: #f2f2f5;
+}
+
+/**
+ * Project Explorer
+ */
+#vboxProjectExplorer {
+    -fx-background-color: #f2f2f5;
+}
+.tree-view {
+    -fx-background-insets: 0;
+    -fx-border-width: 1 0 1 0;
+    -fx-border-color: #cfcfcf;
+}
+
+
+.split-pane{
+    -fx-background-color: transparent;
+}
+.split-pane .split-pane-divider {
+    -fx-pref-width: 1;
+}
+
+
+/**
+* Tab Pane
+*/
+.tab-pane .tab-header-area {
+    -fx-padding: 0 10 0 0;
+}
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #f2f2f5;
+    -fx-background-insets: 0;
+    -fx-border-color: #cfcfcf;
+    -fx-border-width: 0 0 1 0;
+}
+.tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 3 0;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+.tab-pane .focus-indicator {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;    
+}
+.tab-pane .tab:hover {
+    -fx-background-color: #e6e6e6;
+    -fx-border-color: #cfcfcf;
+    -fx-border-width: 0 0 3 0;
+}
+.tab-pane .tab:selected {
+    -fx-background-color: white;
+    -fx-border-color: #4f9ee3;
+}
+.tab-pane .tab-down-button {   
+    -fx-pref-width: 1em;
+    -fx-pref-height: 1em;
+}
+.tab-pane .tab-content-area {
+    -fx-background-color: white;
+}
+
+/* 
+* ScrollPane
+*/
+.scroll-pane {
+    -fx-background-color: white;
+}
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: 12;
+    -fx-pref-height: 12;
+    -fx-padding: 1;
+}
+.scroll-bar .track-background {
+    -fx-background-color: transparent;
+}
+.scroll-bar .thumb {
+    -fx-background-color: rgba(0, 0, 0, .2);
+    -fx-background-radius: 1000;
+}
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+}
+.scroll-bar .filler,
+.scroll-bar .corner { 
+    -fx-background-color: white;
+}
+
+#vboxTabHelp {
+    -fx-background-color: white;
+}
+
+
+
+/* ProgressBar */
+.progress-bar .track {
+    -fx-background-color: #f2f2f5;
+}
+.progress-bar .bar {
+    -fx-padding: 2;
+    -fx-background-insets: 0;
+}
+
+
+/* TableView */
+.table-view .column-header-background  {
+    -fx-background-color: #f2f2f5;
+    -fx-border-color: #cfcfcf;
+    -fx-border-width: 0 0 1 0;
+}
+.table-view .table-column,
+.table-view .nested-column-header,
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+.table-view .table-column {
+    -fx-border-color: #cfcfcf;
+    -fx-border-width: 0 1;
+}
+.corner {
+    -fx-background-color: white;
+}
+
+.bg-project-overview {
+    -fx-background-color: linear-gradient(to bottom, #4f9ee3 30%, #f2f2f5 30%);
+}
+.bg-project-overview > .label {
+    -fx-text-fill: white;
+}
+.bg-project-overview > VBox {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+}
+.bg-project-overview  AnchorPane {
+    -fx-background-color: #4f9ee3;
+    -fx-background-radius: 10;
+}
+.bg-project-overview  AnchorPane > .label {
+    -fx-text-fill: white;
+}
+
+
+#hboxHeader {
+    -fx-background-color: #f2f2f5;
+}
+
+
+/* Log View */
+.log-view .list-cell {
+    -fx-background-color: null; // removes alternating list gray cells.
+}
+
+.log-view .list-cell:debug {
+    -fx-text-fill: gray;
+}
+
+.log-view .list-cell:info {
+    -fx-text-fill: green;
+}
+
+.log-view .list-cell:warn {
+    -fx-text-fill: purple;
+}
+
+.log-view .list-cell:error {
+    -fx-text-fill: red;
+}

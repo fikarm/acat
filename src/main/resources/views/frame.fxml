@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="768.0" prefWidth="1366.0" stylesheets="@../css/acat.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.acat2.controllers.MainController">
+   <children>
+      <HBox fx:id="hboxHeader" maxWidth="1.7976931348623157E308" spacing="10.0">
+         <children>
+            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logo-acat.png" />
+               </image></ImageView>
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="labelFolderName" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Blank Project" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <MenuBar>
+                    <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                        <items>
+                          <MenuItem mnemonicParsing="false" onAction="#chooseFolder" text="Open Folder" />
+                              <MenuItem mnemonicParsing="false" onAction="#exitApp" text="Exit" />
+                        </items>
+                      </Menu>
+                      <Menu fx:id="menuView" mnemonicParsing="false" text="View">
+                        <items>
+                              <MenuItem disable="true" mnemonicParsing="false" onAction="#showTabProjectOverview" text="Project Overview" />
+                          <MenuItem disable="true" mnemonicParsing="false" onAction="#showTabResult" text="Result" />
+                              <MenuItem disable="true" mnemonicParsing="false" onAction="#showTabVisualization" text="Visualization" />
+                              <MenuItem disable="true" mnemonicParsing="false" onAction="#showTabLog" text="Log" />
+                              <MenuItem disable="true" mnemonicParsing="false" onAction="#showTabClassInfo" text="Class Info" />
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                              <MenuItem mnemonicParsing="false" onAction="#toggleLeftPane" text="Toggle Left Pane" />
+                              <MenuItem mnemonicParsing="false" onAction="#toggleRightPane" text="Toggle Right Pane" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Help">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#showTabHelp" text="About" />
+                           </items></Menu>
+                    </menus>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </MenuBar>
+               </children>
+            </VBox>
+            <Label fx:id="labelLastAnlaysis" alignment="CENTER_RIGHT" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <ToolBar fx:id="toolbar" disable="true" focusTraversable="false" minHeight="50.0" scaleShape="false">
+        <items>
+            <Button fx:id="buttonAnalyze" mnemonicParsing="false" onAction="#startAnalyze" text="Analyze">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icon-start.png" />
+                     </image></ImageView>
+               </graphic>
+            </Button>
+            <Separator focusTraversable="false" orientation="VERTICAL">
+               <padding>
+                  <Insets bottom="10.0" left="20.0" top="10.0" />
+               </padding></Separator>
+            <Label contentDisplay="RIGHT" text="AC Weight:">
+               <graphic>
+                  <TextField fx:id="textFieldACWeight" prefWidth="80.0" />
+               </graphic>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Label contentDisplay="RIGHT" text="Iteration:">
+               <graphic>
+                  <TextField fx:id="textFieldPVIter" prefWidth="80.0" />
+               </graphic>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Label contentDisplay="RIGHT" text="Layer:">
+               <graphic>
+                  <TextField fx:id="textFieldPVLayer" prefWidth="80.0" />
+               </graphic>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" text="Window:">
+               <graphic>
+                  <TextField fx:id="textFieldPVWindow" prefWidth="80.0" />
+               </graphic>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Subsample:">
+               <graphic>
+                  <TextField fx:id="textFieldPVSample" prefWidth="80.0" />
+               </graphic>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Neg. Sample:">
+               <graphic>
+                  <TextField fx:id="textFieldPVNS" prefWidth="80.0" />
+               </graphic>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Alpha:">
+               <graphic>
+                  <TextField fx:id="textFieldPVAlpha" prefWidth="80.0" />
+               </graphic>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <CheckBox fx:id="checkBoxPVHS" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="H. Softmax:" />
+        </items>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </ToolBar>
+      <StackPane fx:id="stackPaneMain" onDragDropped="#dragDropped" onDragOver="#dragOver" VBox.vgrow="ALWAYS">
+         <children>
+            <Label focusTraversable="false" text="Drop a folder here to open">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <SplitPane fx:id="splitPaneMain" dividerPositions="0.0, 0.75" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+               <items>
+                  <VBox fx:id="vboxProjectExplorer" minWidth="0.0" SplitPane.resizableWithParent="false">
+                     <children>
+                        <Label fx:id="labelProjectExplorerHeader" maxWidth="1.7976931348623157E308" minHeight="30.0" text="Project Explorer">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icon-pane-project-overview.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <TreeView fx:id="treeClassBrowser" VBox.vgrow="ALWAYS" />
+                        <HBox fx:id="vboxSelectedClass" alignment="CENTER_LEFT" minHeight="30.0">
+                           <children>
+                              <Label text="Selected class: " />
+                              <Label fx:id="labelSelectionCount" text="0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <TabPane fx:id="tabPaneMain" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="160.0" visible="false">
+                    <tabs>
+                      <Tab fx:id="tabProjectOverview" closable="false" text="Project Overview">
+                        <content>
+                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                 <content>
+                                    <VBox alignment="TOP_CENTER" spacing="30.0" styleClass="bg-project-overview">
+                                       <children>
+                                          <Label focusTraversable="false" maxWidth="830.0" text="Project Overview">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <VBox maxWidth="800.0">
+                                             <children>
+                                                <Label focusTraversable="false" text="PROJECT NAME">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="labelProjectName" focusTraversable="false">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label focusTraversable="false" text="LOCATION">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets top="30.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label fx:id="labelProjectLocation" focusTraversable="false">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label focusTraversable="false" text="LOG">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets top="30.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label fx:id="labelLogLocation" focusTraversable="false">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets left="30.0" right="30.0" />
+                                             </VBox.margin>
+                                          </VBox>
+                                          <HBox maxWidth="800.0" spacing="20.0">
+                                             <children>
+                                                <AnchorPane HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <ImageView fitHeight="80.0" fitWidth="100.0" layoutX="14.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-30.0" AnchorPane.leftAnchor="-30.0">
+                                                         <image>
+                                                            <Image url="@../images/fig-total-loc.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Label fx:id="labelLOC" focusTraversable="false" layoutX="30.0" layoutY="30.0" text="0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <font>
+                                                            <Font size="35.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label focusTraversable="false" layoutX="64.0" layoutY="76.0" text="TOTAL LINES OF CODE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                   <padding>
+                                                      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                                                   </padding>
+                                                </AnchorPane>
+                                                <AnchorPane HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-30.0" AnchorPane.leftAnchor="-30.0">
+                                                         <image>
+                                                            <Image url="@../images/fig-number-of-package.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Label fx:id="labelPackageNum" focusTraversable="false" layoutX="139.0" layoutY="30.0" text="0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <font>
+                                                            <Font size="35.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label focusTraversable="false" layoutX="30.0" layoutY="76.0" text="NUMBER OF PACKAGES" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                   <padding>
+                                                      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                                                   </padding>
+                                                </AnchorPane>
+                                                <AnchorPane HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-30.0" AnchorPane.leftAnchor="-30.0">
+                                                         <image>
+                                                            <Image url="@../images/fig-number-of-class.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Label fx:id="labelClassNum" focusTraversable="false" layoutX="111.0" layoutY="30.0" text="0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <font>
+                                                            <Font size="35.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label focusTraversable="false" layoutX="30.0" layoutY="76.0" text="NUMBER OF CLASSES" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                   <padding>
+                                                      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                                                   </padding>
+                                                </AnchorPane>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="30.0" right="30.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
+                        </content>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icon-tab-project-overview.png" />
+                                 </image>
+                                 <viewport>
+                                    <Rectangle2D />
+                                 </viewport>
+                              </ImageView>
+                           </graphic>
+                      </Tab>
+                        <Tab fx:id="tabResult" disable="true" text="Result">
+                           <content>
+                              <TableView fx:id="tableViewResult" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                <columns>
+                                    <TableColumn fx:id="tableColumnNo" editable="false" maxWidth="-1.0" minWidth="50.0" prefWidth="-1.0" sortable="false" text="No" />
+                                  <TableColumn fx:id="tableColumnEntity" editable="false" maxWidth="1.7976931348623157E308" minWidth="250.0" prefWidth="-1.0" sortable="false" text="Entity" />
+                                  <TableColumn fx:id="tableColumnACE" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" sortable="false" text="ACE" />
+                                </columns>
+                              </TableView>
+                           </content>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icon-tab-result.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Tab>
+                        <Tab fx:id="tabVisualization" closable="false" disable="true" text="Visualization">
+                           <content>
+                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                 <content>
+                                    <HBox fx:id="hboxGridContainer" alignment="CENTER" fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" />
+                                 </content>
+                              </ScrollPane>
+                           </content>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icon-tab-visualization.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Tab>
+                        <Tab fx:id="tabLogs" closable="false" text="Log">
+                          <content>
+                              <ScrollPane fx:id="scrollPaneLog" fitToHeight="true" fitToWidth="true" />
+                          </content>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icon-tab-log.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
+                  <TabPane fx:id="tabPaneInfo" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="160.0" SplitPane.resizableWithParent="false">
+                    <tabs>
+                      <Tab fx:id="tabHelp" closable="false" text="Help">
+                        <content>
+                              <ScrollPane fitToWidth="true" maxWidth="1.7976931348623157E308">
+                                 <content>
+                                    <VBox fx:id="vboxTabHelp" alignment="TOP_CENTER">
+                                       <children>
+                                          <Label maxWidth="1.7976931348623157E308" text="Welcome">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" text="ACAT (pronounced  &quot;a cat&quot;) which stands for Aggregated Coupling Assesment Tool is a program that calculates aggregated coupling in Java codes. It combines two type of coupling measurement, that is structural coupling and conceptual coupling. The combinations results in better coupling identification. This program is an implementation of Czibula et al. (2018) works. This program is developed solely for educational purpose." wrapText="true">
+                                             <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="10.0" right="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
+                                             <image>
+                                                <Image url="@../images/logo-acat.png" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                             <VBox.margin>
+                                                <Insets top="20.0" />
+                                             </VBox.margin>
+                                          </ImageView>
+                                          <Label layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" text="How to use">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" top="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="31.0" maxWidth="1.7976931348623157E308" text="1. Specify folders that contain java source code. In order to do that, you can directly drag and drop a folder into the program or through the menu bar." wrapText="true">
+                                             <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="10.0" right="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="247.0" maxWidth="1.7976931348623157E308" text="2. After project has been loaded, select class that you want to measure." wrapText="true">
+                                             <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="10.0" right="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="307.0" maxWidth="1.7976931348623157E308" text="3. Start to analyze by clicking the analyze button." wrapText="true">
+                                             <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="10.0" right="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="337.0" maxWidth="1.7976931348623157E308" text="4. Wait until calculation is done. Result will be shown." wrapText="true">
+                                             <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="10.0" right="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="367.0" maxWidth="1.7976931348623157E308" text="5. Optionally you can visualize the results to gain understanding better." wrapText="true">
+                                             <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="10.0" right="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <Group>
+                                             <children>
+                                                <Label text="Developed by:" wrapText="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="98.0" text="Fikar Mukamal" wrapText="true">
+                                                   <font>
+                                                      <Font size="12.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets top="30.0" />
+                                             </VBox.margin>
+                                          </Group>
+                                          <Label layoutX="10.0" layoutY="277.0" text="fikarm@student.ub.ac.id" wrapText="true">
+                                             <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Group>
+                                             <children>
+                                                <Label text="Version:" wrapText="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="57.0" text="1.0-SNAPSHOT" wrapText="true">
+                                                   <font>
+                                                      <Font size="12.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Group>
+                                          <Label layoutX="10.0" layoutY="262.0" text="7 June 2020" wrapText="true">
+                                             <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
+                        </content>
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icon-tab-help.png" />
+                                 </image></ImageView>
+                           </graphic>
+                      </Tab>
+                      <Tab fx:id="tabClassInfo" closable="false" text="Class Info">
+                           <content>
+                              <GridPane hgap="10.0" vgap="20.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" />
+                                    <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                                    <ColumnConstraints />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints fillHeight="false" minHeight="-Infinity" vgrow="NEVER" />
+                                    <RowConstraints fillHeight="false" minHeight="-Infinity" vgrow="NEVER" />
+                                  <RowConstraints fillHeight="false" minHeight="-Infinity" vgrow="NEVER" />
+                                  <RowConstraints fillHeight="false" minHeight="-Infinity" vgrow="NEVER" />
+                                  <RowConstraints fillHeight="false" minHeight="-Infinity" vgrow="NEVER" />
+                                    <RowConstraints fillHeight="false" minHeight="-Infinity" vgrow="NEVER" />
+                                    <RowConstraints fillHeight="false" minHeight="-Infinity" vgrow="NEVER" />
+                                    <RowConstraints fillHeight="false" minHeight="-Infinity" vgrow="NEVER" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label fx:id="labelClassName" layoutX="10.0" layoutY="40.0" text="Class Name" GridPane.columnSpan="2147483647">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font></Label>
+                                    <Label layoutX="20.0" layoutY="87.0" text="Initial" GridPane.rowIndex="1" />
+                                    <Label fx:id="labelClassInitial" layoutX="20.0" layoutY="57.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label text="Type" GridPane.rowIndex="2" />
+                                    <Label fx:id="labelClassType" layoutX="10.0" layoutY="47.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label layoutX="10.0" layoutY="19.0" text="Package" GridPane.rowIndex="3" />
+                                    <Label fx:id="labelClassPackage" layoutX="10.0" layoutY="77.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label layoutX="20.0" layoutY="117.0" text="Line of Code" GridPane.rowIndex="4" />
+                                    <Label fx:id="labelClassLOC" layoutX="20.0" layoutY="147.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label layoutX="10.0" layoutY="65.0" text="Aggregated Coupling" GridPane.rowIndex="5" />
+                                    <Label fx:id="labelClassACE" layoutX="10.0" layoutY="107.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label text="Relevant Propertes" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
+                                    <ListView fx:id="listViewClassRP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="7" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </GridPane>
+                           </content>
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icon-tab-info.png" />
+                                 </image></ImageView>
+                           </graphic>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+               </items>
+            </SplitPane>
+         </children>
+      </StackPane>
+      <ProgressBar fx:id="progressBar" focusTraversable="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" progress="1.0" />
+      <HBox fx:id="hboxStatusBar" alignment="CENTER_LEFT" fillHeight="false">
+         <children>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icon-status-message.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="labelStatusText" alignment="CENTER_RIGHT" focusTraversable="false" text="Ready" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button fx:id="buttonCancelTask" alignment="CENTER" mnemonicParsing="false" onAction="#cancelTask" text="cancel task" visible="false">
+               <font>
+                  <Font size="11.0" />
+               </font></Button>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="47.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icon-status-stopwatch.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="labelTimelapse" focusTraversable="false" text="00m 00s 000ms" />
+         </children>
+         <padding>
+            <Insets bottom="3.0" left="10.0" right="10.0" top="3.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>
